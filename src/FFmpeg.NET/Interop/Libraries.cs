@@ -59,6 +59,8 @@ namespace FFmpeg.NET.Interop
             _ => string.Empty
         };
 
+        public static readonly int EAGAIN = OperatingSystem.IsMacOS() ? 35 : 11;
+
         // 已创建动态库实例
         public static readonly Libraries Instance = new Libraries();
 

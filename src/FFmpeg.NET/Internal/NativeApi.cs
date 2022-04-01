@@ -18,5 +18,13 @@ namespace FFmpeg.NET.Internal
 
         public static IntPtr FunctionPtr(IntPtr handle, string function) 
             => NativeLibrary.TryGetExport(handle, function, out IntPtr address) ? address : default;
+
+
+        public static T GetNativeMethodDelegate<T>(IntPtr handle)
+        {
+            var method = typeof(T).GetCustomAttribute()
+            var ptr = NativeLibrary.TryGetExport(handle, function, out IntPtr address) ? address : default;
+            return Marshal.GetDelegateForFunctionPointer<T>(ptr);
+        }
     }
 }

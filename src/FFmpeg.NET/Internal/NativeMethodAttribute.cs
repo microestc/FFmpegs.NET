@@ -1,16 +1,18 @@
+using System;
+
 namespace FFmpeg.NET.Internal
 {
-    [AttributeUsage(AttributeTargets.Delegate, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Delegate, Inherited = false, AllowMultiple = false)]
     public sealed class NativeMethodAttribute : Attribute
     {
-        public NativeMethodAttribute(string nativeMethod)
+        public NativeMethodAttribute(string method)
         {
-            NativeMethod = nativeMethod;
+            Method = method;
         }
 
         /// <summary>
         /// Called Native Method Name
         /// </summary>
-        public string NativeMethod { get; }
+        public string Method { get; }
     }
 }

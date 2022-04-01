@@ -1,42 +1,13 @@
-﻿
+﻿using System;
+using FFmpeg.NET.Internal;
 
-_ = FFmpeg.Library.Version;
+Console.WriteLine("Hello, Start!");
 
-// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+var version = NativeApi.Api.GetVersionInfo();
 
-Console.WriteLine(typeof(FFmpeg.Library).FullName);
+Console.WriteLine(version);
 
-namespace FFmpeg
-{
-    public class Library
-    {
-
-        public int Num = 1;
-
-        public static int Version = GetVersion();
-
-        public static int Loaded = Load();
-
-        public static Library Instance = new Library();
+Console.WriteLine("Hello End!");
 
 
-        private static int GetVersion()
-        {
-            Console.WriteLine("GetVersion");
-            return 10;
-        }
 
-        public static int Load()
-        {
-            Console.WriteLine("Load");
-            return 2;
-        }
-
-        public Library()
-        {
-            Console.WriteLine("Library");
-        }
-
-    }
-}

@@ -1,30 +1,31 @@
-using System.Net;
+using System;
 using System.Runtime.InteropServices;
 using FFmpeg.NET.Interop;
+using static FFmpeg.NET.Internal.NativeMethods;
 
 namespace FFmpeg.NET.Internal
 {
-    internal unsafe sealed class NativeApi
+    public unsafe sealed class NativeApi
     {
-        internal static NativeApi Api { get; } = new NativeApi();
+        public static NativeApi Api { get; } = new NativeApi();
 
-        internal Libraries Libraries { get; }
+        internal Libraries LibrariesInstance { get; }
 
         public NativeApi()
         {
-            Libraries = Libraries.Instance;
-
+            LibrariesInstance = Libraries.Instance;
+            if (!LibrariesInstance.IsSupported) throw new NotSupportedException();
+            GetVersionInfo = NativeMethodDelegate<GetVersionInfoDelegate>(LibrariesInstance.PTR_AVUTIL);
         }
 
-        public static IntPtr FunctionPtr(IntPtr handle, string function) 
-            => NativeLibrary.TryGetExport(handle, function, out IntPtr address) ? address : default;
-
-
-        public static T GetNativeMethodDelegate<T>(IntPtr handle)
+        public static T NativeMethodDelegate<T>(IntPtr handle)
         {
-            var method = typeof(T).GetCustomAttribute()
-            var ptr = NativeLibrary.TryGetExport(handle, function, out IntPtr address) ? address : default;
-            return Marshal.GetDelegateForFunctionPointer<T>(ptr);
+            var attribute = (NativeMethodAttribute?)Attribute.GetCustomAttribute(typeof(T), typeof(NativeMethodAttribute));
+            if (attribute == null) throw new AttributeNotFoundException(typeof(T), typeof(NativeMethodAttribute));
+            var intptr = NativeLibrary.TryGetExport(handle, attribute.Method, out IntPtr address) ? address : default;
+            return Marshal.GetDelegateForFunctionPointer<T>(intptr);
         }
+
+        public GetVersionInfoDelegate GetVersionInfo { get; }
     }
 }

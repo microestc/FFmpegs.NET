@@ -3,8 +3,17 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0;net5.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="lib\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="lib\**">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>

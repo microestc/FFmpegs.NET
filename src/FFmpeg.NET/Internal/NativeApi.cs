@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.InteropServices;
-using FFmpeg.NET.Interop;
 using static FFmpeg.NET.Internal.NativeMethods;
 
 namespace FFmpeg.NET.Internal
@@ -9,13 +8,13 @@ namespace FFmpeg.NET.Internal
     {
         public static NativeApi Api { get; } = new NativeApi();
 
-        internal Libraries LibrariesInstance { get; }
+        internal Interop.Libraries Instance { get; }
 
         public NativeApi()
         {
-            LibrariesInstance = Libraries.Instance;
-            if (!LibrariesInstance.IsSupported) throw new NotSupportedException();
-            GetVersionInfo = NativeMethodDelegate<GetVersionInfoDelegate>(LibrariesInstance.PTR_AVUTIL);
+            Instance = Interop.Libraries.Instance;
+            if (!Instance.IsSupported) throw new NotSupportedException();
+            GetVersionInfo = NativeMethodDelegate<GetVersionInfoDelegate>(Instance.PTR_AVUTIL);
         }
 
         public static T NativeMethodDelegate<T>(IntPtr handle)

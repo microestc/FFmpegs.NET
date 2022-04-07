@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace FFmpeg.NET.Interop
 {
-    internal sealed class Libraries
+    internal sealed class LibrariesLoader
     {
         public const string AV_UTIL = "avutil";
         public const string SW_SCALE = "swscale";
@@ -16,22 +16,24 @@ namespace FFmpeg.NET.Interop
         public const string AV_FILTER = "avfilter";
         public const string AV_DEVICE = "avdevice";
 
-        internal static string DLL_DIR = "lib";
+        internal const string DLL_DIR = "lib";
 
-        // 动态库依赖关系
-        // public static readonly IDictionary<string, string[]> LibraryDependencies = new Dictionary<string, string[]>(StringComparer.CurrentCulture)
-        // {
-        //     { AV_UTIL, new string[]{} },
-        //     { SW_SCALE, new []{ AV_UTIL } },
-        //     { POSTPROC, new []{ AV_UTIL } },
-        //     { SW_RESAMPLE, new []{ AV_UTIL } },
-        //     { AV_CODEC, new []{ AV_UTIL, SW_RESAMPLE } },
-        //     { AV_FORMAT, new []{ AV_UTIL, SW_RESAMPLE, AV_CODEC } },
-        //     { AV_FILTER, new []{ AV_UTIL, SW_SCALE, POSTPROC, SW_RESAMPLE, AV_CODEC, AV_FORMAT } },
-        //     { AV_DEVICE, new []{ AV_UTIL, SW_SCALE, POSTPROC, SW_RESAMPLE, AV_CODEC, AV_FORMAT, AV_FILTER } },
-        // };
+        /// <summary>
+        /// dynamic link library dependency relationes.
+        /// </summary>
+        public static readonly IDictionary<string, string[]> Dependencies = new Dictionary<string, string[]>(StringComparer.CurrentCulture)
+        {
+            { AV_UTIL, new string[]{} },
+            { SW_SCALE, new []{ AV_UTIL } },
+            { POSTPROC, new []{ AV_UTIL } },
+            { SW_RESAMPLE, new []{ AV_UTIL } },
+            { AV_CODEC, new []{ AV_UTIL, SW_RESAMPLE } },
+            { AV_FORMAT, new []{ AV_UTIL, SW_RESAMPLE, AV_CODEC } },
+            { AV_FILTER, new []{ AV_UTIL, SW_SCALE, POSTPROC, SW_RESAMPLE, AV_CODEC, AV_FORMAT } },
+            { AV_DEVICE, new []{ AV_UTIL, SW_SCALE, POSTPROC, SW_RESAMPLE, AV_CODEC, AV_FORMAT, AV_FILTER } },
+        };
 
-        public static readonly IDictionary<string, int> LIBRARYVERSION_MAPS = new Dictionary<string, int>(StringComparer.CurrentCulture)
+        public static readonly IDictionary<string, int> Versions = new Dictionary<string, int>(StringComparer.CurrentCulture)
         {
             { AV_UTIL, 57 },
             { SW_SCALE, 6 },
@@ -65,7 +67,7 @@ namespace FFmpeg.NET.Interop
         public static readonly int EAGAIN = OperatingSystem.IsMacOS() ? 35 : 11;
 
         // 已创建动态库实例
-        public static readonly Libraries Instance = new Libraries();
+        public static readonly LibrariesLoader Instance = new LibrariesLoader();
 
         private bool _supported = false;
 
@@ -87,34 +89,34 @@ namespace FFmpeg.NET.Interop
         public IntPtr PTR_AVFILTER { get; private set; }
         public IntPtr PTR_AVDEVICE { get; private set; }
 
-        public Libraries()
+        public LibrariesLoader()
         {
             Load();
         }
 
         private void Load()
         {
-            foreach (var row in LIBRARYVERSION_MAPS)
+            foreach (var row in Versions)
             {
                 IntPtr handle;
                 // frist load external libraries. 
-                if (NativeLibrary.TryLoad(PlatformLibraryPath(row.Key, row.Value), typeof(Libraries).Assembly, DllImportSearchPath.UseDllDirectoryForDependencies, out handle))
+                if (NativeLibrary.TryLoad(PlatformLibraryPath(row.Key, row.Value), typeof(LibrariesLoader).Assembly, DllImportSearchPath.UseDllDirectoryForDependencies, out handle))
                 {
                     LoadedLibraries.Add(row.Key, handle);
                     continue;
                 }
-                if (NativeLibrary.TryLoad(PlatformLibraryPath(row.Key), typeof(Libraries).Assembly, DllImportSearchPath.UseDllDirectoryForDependencies, out handle))
+                if (NativeLibrary.TryLoad(PlatformLibraryPath(row.Key), typeof(LibrariesLoader).Assembly, DllImportSearchPath.UseDllDirectoryForDependencies, out handle))
                 {
                     LoadedLibraries.Add(row.Key, handle);
                     continue;
                 }
                 // load internal libraries
-                if (NativeLibrary.TryLoad(PlatformLibraryPath(row.Key, row.Value, true), typeof(Libraries).Assembly, DllImportSearchPath.AssemblyDirectory, out handle))
+                if (NativeLibrary.TryLoad(PlatformLibraryPath(row.Key, row.Value, true), typeof(LibrariesLoader).Assembly, DllImportSearchPath.AssemblyDirectory, out handle))
                 {
                     LoadedLibraries.Add(row.Key, handle);
                     continue;
                 }
-                if (NativeLibrary.TryLoad(PlatformLibraryPath(row.Key, @internal: true), typeof(Libraries).Assembly, DllImportSearchPath.AssemblyDirectory, out handle))
+                if (NativeLibrary.TryLoad(PlatformLibraryPath(row.Key, @internal: true), typeof(LibrariesLoader).Assembly, DllImportSearchPath.AssemblyDirectory, out handle))
                 {
                     LoadedLibraries.Add(row.Key, handle);
                     continue;

@@ -1,0 +1,133 @@
+#!csharp
+
+using System.IO;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
+var filename = "NativeMethod.cs";
+var file = "NativeMethods_.cs";
+var regex = new Regex(@"GetOrLoadLibrary\(""(?<TYPE>[^""]+)""\), ""(?<NAME>[^""]+)""");
+
+using(var reader = File.OpenText(filename))
+{
+    using(var writer = File.CreateText(file))
+    {
+        string line;
+        List<string> lines = new List<string>();
+        int flag = 0;
+
+        while((line = reader.ReadLine()) != null)
+        {
+            if(line.StartsWith("        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]"))
+            {
+                flag = 1;
+                lines.Add(line);
+                continue;
+            }
+            if(flag > 0)
+            {
+                if(line.StartsWith("        private static "))
+                {
+                    flag = 2;
+                    continue;
+                }
+                if(flag == 1)
+                {
+                    lines.Add(line);
+                    continue;
+                }
+                if(flag == 2) {
+                    flag = 3;
+                    continue;
+                }
+                if(flag == 3)
+                {
+                    var match = regex.Match(line);
+                    if(match.Success)
+                    {
+                        flag = 4;
+                        var v1 = match.Groups["TYPE"].Value;
+                        var v2 = match.Groups["NAME"].Value;
+
+                        writer.WriteLine($@"        [NativeMethod({v1.ToUpper()}, ""{v2}"")]");
+                        foreach(var ln in lines)
+                        {
+                            writer.WriteLine(ln);
+                        }
+                        writer.WriteLine();
+                        lines.Clear();
+                        continue;
+                    }
+                }
+                if(flag == 4 && line.StartsWith("        };"))
+                {
+                    flag = 0;
+                    continue;
+                }
+                continue;
+            }
+
+            writer.WriteLine(line);
+        }
+        writer.Flush();
+    }
+}
+
+#!csharp
+
+using System.IO;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
+var filename = "NativeMethods`.cs";
+var file1 = "NativeMethods1.cs";
+var file2 = "NativeMethods2.cs";
+var regex = new Regex(@"private delegate [^ ]+ (?<NAME>[^ ]+)_delegate\(");
+
+using(var reader = File.OpenText(filename))
+{
+    using(StreamWriter writer1 = File.CreateText(file1), writer2 = File.CreateText(file2))
+    {
+        string line;
+        List<string> lines = new List<string>();
+        int flag = 0;
+
+        while((line = reader.ReadLine()) != null)
+        {
+            if(line.StartsWith("        [NativeMethod("))
+            {
+                flag = 1;
+                lines.Add(line);
+                continue;
+            }
+            if(flag > 0)
+            {
+                lines.Add(line);
+                if(line.TrimEnd(' ').EndsWith(");"))
+                {
+                    flag = 0;
+                    foreach(var ln in lines)
+                    {
+                        writer2.WriteLine(ln);
+                    }
+                    writer2.WriteLine();
+                    lines.Clear();
+                }
+                if(line.StartsWith("        private delegate "))
+                {
+                    var match = regex.Match(line);
+                    if(match.Success)
+                    {
+                        var name = match.Groups["NAME"].Value;
+                        writer1.WriteLine($"        private static {name}_delegate {name}_fptr {{ get; }}");
+                    }
+                }
+                continue;
+            }
+
+            writer1.WriteLine(line);
+        }
+        writer1.Flush();
+        writer2.Flush();
+    }
+}

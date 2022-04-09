@@ -1,15 +1,14 @@
 ﻿using System;
-using FFmpeg.NET.Internal;
+using FFmpeg.NET;
 
 Console.WriteLine("Hello, Start!");
+var api = new NativeApi(new FFmpegSettings{ DLLDIR = null });
 
-var version = NativeApi.Api.GetVersionInfo();
+var version = api.av_version_info();
 Console.WriteLine(version);
 
-var err = NativeApi.Api.GetError(-1179861752);
+var err = api.GetError(-1179861752);
 Console.WriteLine(err);
-
-
 
 Console.WriteLine("Hello End!");
 

@@ -18,15 +18,14 @@ namespace FFmpeg.NET.Internal
 
         public void CleanUpNativeData(IntPtr pNativeData)
         {
-            Marshal.Release(pNativeData);
         }
 
         public int GetNativeDataSize() => IntPtr.Size;
 
         public IntPtr MarshalManagedToNative(object ManagedObj)
         {
-            if (ManagedObj is string ansiStr)
-                return Marshal.StringToCoTaskMemUTF8(ansiStr);
+            if (ManagedObj is string str)
+                return Marshal.StringToCoTaskMemUTF8(str);
             return IntPtr.Zero;
         }
 

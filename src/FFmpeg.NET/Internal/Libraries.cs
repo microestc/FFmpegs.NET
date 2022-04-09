@@ -1,15 +1,14 @@
 namespace FFmpeg.NET
 {
-    public enum Libraries : byte
+    public static class Libraries
     {
-        NONE = 0,
-        AVUTIL = 1,
-        SWSCALE = 2,
-        POSTPROC = 3,
-        SWRESAMPLE = 4,
-        AVCODEC = 5,
-        AVFORMAT = 6,
-        AVFILTER = 7,
-        AVDEVICE = 8
+        public const string AVUTIL = "avutil";
+        public const string SWSCALE = "swscale";
+        public const string POSTPROC = "postproc";
+        public const string SWRESAMPLE = "swresample";
+        public const string AVCODEC = "avcodec";
+        public const string AVFORMAT = "avformat";
+        public const string AVFILTER = "avfilter";
+        public const string AVDEVICE = "avdevice";
     }
 }

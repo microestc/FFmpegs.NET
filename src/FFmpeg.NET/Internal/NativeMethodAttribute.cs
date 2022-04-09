@@ -5,7 +5,7 @@ namespace FFmpeg.NET.Internal
     [AttributeUsage(AttributeTargets.Delegate, Inherited = false, AllowMultiple = false)]
     public sealed class NativeMethodAttribute : Attribute
     {
-        public NativeMethodAttribute(Libraries library, string method)
+        public NativeMethodAttribute(string library, string method)
         {
             Library = library;
             Method = method;
@@ -14,7 +14,7 @@ namespace FFmpeg.NET.Internal
         /// <summary>
         /// Called Native Library Name
         /// </summary>
-        public Libraries Library { get; }
+        public string Library { get; }
 
         /// <summary>
         /// Called Native Method Name

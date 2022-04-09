@@ -33,7 +33,7 @@ namespace FFmpeg.NET.Internal
         public object MarshalNativeToManaged(IntPtr pNativeData)
         {
             if (pNativeData == IntPtr.Zero) return string.Empty;
-            return Marshal.PtrToStringAuto(pNativeData)!;
+            return Marshal.PtrToStringUTF8(pNativeData)!;
         }
     }
 }

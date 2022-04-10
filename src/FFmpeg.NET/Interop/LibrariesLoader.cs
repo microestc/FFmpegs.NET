@@ -68,9 +68,9 @@ namespace FFmpeg.NET.Interop
         /// </summary>
         private string _DIR;
 
-        public LibrariesLoader(FFmpegSettings settings)
+        public LibrariesLoader(FFmpegOptions options)
         {
-            _DIR = string.IsNullOrEmpty(settings.DLLDIR) ? DIR : settings.DLLDIR;
+            _DIR = string.IsNullOrEmpty(options.DLLDIR) ? DIR : options.DLLDIR;
         }
 
         private IntPtr Load(string library)

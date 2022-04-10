@@ -1,6 +1,6 @@
 namespace FFmpeg.NET
 {
-    public class FFmpegSettings
+    public class FFmpegOptions
     {
         // dynamic link libraries directory
         public string? DLLDIR { get; set; }

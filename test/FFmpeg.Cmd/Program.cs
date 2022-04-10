@@ -2,7 +2,7 @@
 using FFmpeg.NET;
 
 Console.WriteLine("Hello, Start!");
-var api = new NativeApi(new FFmpegSettings{ DLLDIR = null });
+var api = new NativeApi(new FFmpegOptions{ DLLDIR = null });
 
 var version = api.av_version_info();
 Console.WriteLine(version);

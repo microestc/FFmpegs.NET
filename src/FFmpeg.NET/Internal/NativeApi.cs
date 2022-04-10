@@ -10,9 +10,9 @@ namespace FFmpeg.NET
     {
         private LibrariesLoader _loader;
 
-        public NativeApi(FFmpegSettings settings)
+        public NativeApi(FFmpegOptions options)
         {
-            _loader = new LibrariesLoader(settings);
+            _loader = new LibrariesLoader(options);
         }
 
         public T NativeMethodDelegate<T>()

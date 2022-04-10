@@ -7,10 +7,10 @@ namespace FFmpeg.Api.Controllers;
 [Route("[controller]")]
 public class IndexController : ControllerBase
 {
-    private readonly NativeApi _api;
+    private readonly FFmpegApi _api;
     private readonly ILogger<IndexController> _logger;
 
-    public IndexController(ILogger<IndexController> logger, NativeApi api)
+    public IndexController(ILogger<IndexController> logger, FFmpegApi api)
     {
         _logger = logger;
         _api = api;

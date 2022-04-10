@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFmpeg.Cmd", "test\FFmpeg.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFmpeg.Api", "test\FFmpeg.Api\FFmpeg.Api.csproj", "{14A7573A-F3B8-4F17-AF65-52A766F2A053}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFmpeg.NET", "ref\FFmpeg.NET.csproj", "{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}"
-EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,18 +62,6 @@ Global
 		{14A7573A-F3B8-4F17-AF65-52A766F2A053}.Release|x64.Build.0 = Release|Any CPU
 		{14A7573A-F3B8-4F17-AF65-52A766F2A053}.Release|x86.ActiveCfg = Release|Any CPU
 		{14A7573A-F3B8-4F17-AF65-52A766F2A053}.Release|x86.Build.0 = Release|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Debug|x64.Build.0 = Debug|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Debug|x86.Build.0 = Debug|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Release|x64.ActiveCfg = Release|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Release|x64.Build.0 = Release|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Release|x86.ActiveCfg = Release|Any CPU
-		{82F5D758-8C6A-4ABD-BE25-5D070C07F27C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{76DA4325-E948-4A16-AC91-998C370879D8} = {417C4899-CE27-41EB-869D-F06876790437}

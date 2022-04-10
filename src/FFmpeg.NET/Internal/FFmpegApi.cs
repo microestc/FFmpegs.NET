@@ -6,11 +6,11 @@ using static FFmpeg.NET.Internal.NativeMethods;
 
 namespace FFmpeg.NET
 {
-    public unsafe sealed partial class NativeApi
+    public unsafe sealed partial class FFmpegApi
     {
         private LibrariesLoader _loader;
 
-        public NativeApi(FFmpegOptions options)
+        public FFmpegApi(FFmpegOptions options)
         {
             _loader = new LibrariesLoader(options);
         }

@@ -1,8 +1,8 @@
 using System;
 
-namespace FFmpeg.NET.Internal
+namespace FFmpeg.NET
 {
-    public unsafe static partial class Constants
+    public unsafe static partial class FFmpeg
     {
         public static ulong UINT64_C<T>(T a)
             => Convert.ToUInt64(a);

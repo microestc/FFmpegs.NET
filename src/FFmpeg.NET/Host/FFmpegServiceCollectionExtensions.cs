@@ -10,7 +10,7 @@ namespace FFmpeg.NET.Host
             var options = new FFmpegOptions();
             if (setupAction != null) setupAction(options);
 
-            services.AddSingleton<NativeApi>(new NativeApi(options));
+            services.AddSingleton<FFmpegApi>(new FFmpegApi(options));
             return services;
         }
     }

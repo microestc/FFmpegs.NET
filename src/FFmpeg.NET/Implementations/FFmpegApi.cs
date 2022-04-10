@@ -2,7 +2,7 @@ using System;
 
 namespace FFmpeg.NET
 {
-    public unsafe sealed partial class NativeApi
+    public unsafe sealed partial class FFmpegApi
     {
         /// <summary>Clip a signed integer value into the amin-amax range.</summary>
         /// <param name="a">value to clip</param>

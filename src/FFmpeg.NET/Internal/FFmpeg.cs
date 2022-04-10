@@ -1,6 +1,6 @@
-namespace FFmpeg.NET.Internal
+namespace FFmpeg.NET
 {
-    public unsafe static partial class Constants
+    public unsafe static partial class FFmpeg
     {
         public static readonly int ENOMEM = 12;
 

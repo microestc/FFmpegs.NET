@@ -1,6 +1,6 @@
 namespace FFmpeg.NET
 {
-    public static class Libraries
+    public static class LibraryNames
     {
         public const string AVUTIL = "avutil";
         public const string SWSCALE = "swscale";

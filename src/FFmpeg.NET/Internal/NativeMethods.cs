@@ -5,14 +5,14 @@ namespace FFmpeg.NET.Internal
 {
     public unsafe static partial class NativeMethods
     {
-        private const string AVUTIL = Libraries.AVUTIL;
-        private const string SWSCALE = Libraries.SWSCALE;
-        private const string POSTPROC = Libraries.POSTPROC;
-        private const string SWRESAMPLE = Libraries.SWRESAMPLE;
-        private const string AVCODEC = Libraries.AVCODEC;
-        private const string AVFORMAT = Libraries.AVFORMAT;
-        private const string AVFILTER = Libraries.AVFILTER;
-        private const string AVDEVICE = Libraries.AVDEVICE;
+        private const string AVUTIL = LibraryNames.AVUTIL;
+        private const string SWSCALE = LibraryNames.SWSCALE;
+        private const string POSTPROC = LibraryNames.POSTPROC;
+        private const string SWRESAMPLE = LibraryNames.SWRESAMPLE;
+        private const string AVCODEC = LibraryNames.AVCODEC;
+        private const string AVFORMAT = LibraryNames.AVFORMAT;
+        private const string AVFILTER = LibraryNames.AVFILTER;
+        private const string AVDEVICE = LibraryNames.AVDEVICE;
         
         [NativeMethod(AVCODEC, "av_codec_is_decoder")]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]

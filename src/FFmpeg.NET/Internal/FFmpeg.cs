@@ -2,6 +2,7 @@ namespace FFmpeg.NET
 {
     public unsafe static partial class FFmpeg
     {
+        public static string? DIR = null;
         public static readonly int ENOMEM = 12;
 
         public static readonly int EINVAL = 22;

@@ -32,7 +32,7 @@ namespace FFmpeg.NET
         /// <returns>a non-zero number if codec is a decoder, zero otherwise</returns>
         public int av_codec_is_decoder(AVCodec* @codec)
         {
-            return av_codec_is_decoder_ptr(@codec);
+            return NativeMethodDelegate<av_codec_is_decoder_delegate>()(@codec);
         }
 
         private av_codec_is_encoder_delegate? _av_codec_is_encoder_ptr;

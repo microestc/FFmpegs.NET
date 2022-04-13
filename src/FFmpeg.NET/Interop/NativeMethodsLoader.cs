@@ -18,8 +18,6 @@ namespace FFmpeg.NET.Interop
         public static string AV_DEVICE => LibraryNames.AVDEVICE;
         private const string DLL_DIR = "lib";
 
-        public static readonly int EAGAIN = OperatingSystem.IsMacOS() ? 35 : 11;
-
         /// <summary>OS PlatformID.</summary>
         public static readonly PlatformID OSPlatformID = OperatingSystem.IsWindows() ? PlatformID.Win32NT : OperatingSystem.IsLinux() ? PlatformID.Unix : OperatingSystem.IsMacOS() ? PlatformID.MacOSX : PlatformID.Other;
 
@@ -33,20 +31,17 @@ namespace FFmpeg.NET.Interop
             _ => string.Empty
         };
 
-        /// <summary>
-        /// dynamic link libraries path
-        /// </summary>
         private static string DIR = Path.Combine(DLL_DIR, OsPlatformArch);
 
         /// <summary>
-        /// dynamic link libraries path changed.
+        /// dynamic link libraries path
         /// </summary>
-        private static bool Changed => FFmpeg.DIR != null && FFmpeg.DIR != DIR ? (DIR = FFmpeg.DIR) == DIR : false;
+        public static string CurrentDIR = DIR;
 
         /// <summary>
         /// dynamic link library dependency relationes.
         /// </summary>
-        public static readonly IDictionary<string, string[]> DEPENDENCIES = new Dictionary<string, string[]>(StringComparer.CurrentCulture)
+        private static readonly IDictionary<string, string[]> DEPENDENCIES = new Dictionary<string, string[]>(StringComparer.CurrentCulture)
         {
             { AVUTIL, new string[]{} },
             { SWSCALE, new []{ AVUTIL } },
@@ -70,52 +65,65 @@ namespace FFmpeg.NET.Interop
             { AV_DEVICE, 59 },
         };
 
-        private readonly static Dictionary<string, IntPtr> Loadeds = new Dictionary<string, IntPtr>(StringComparer.CurrentCulture);
+        private readonly static IDictionary<string, IntPtr> LoadedHandles = new Dictionary<string, IntPtr>(StringComparer.CurrentCulture);
+
+        private static void Dispose()
+        {
+            if (LoadedHandles.Count > 0)
+            {
+                LoadedHandles.Values.ToList().ForEach(ptr => NativeLibrary.Free(ptr));
+                LoadedHandles.Clear();
+            }
+        }
+
+        static NativeMethodsLoader()
+        {
+            AppDomain.CurrentDomain.ProcessExit += (s, e) => Dispose();
+        }
+
+        /// <summary>
+        /// dynamic link libraries path changed.
+        /// </summary>
+        private static bool HasChanged => FFmpeg.DLLDIR != null && FFmpeg.DLLDIR != CurrentDIR ? (CurrentDIR = FFmpeg.DLLDIR) == CurrentDIR : false;
 
         private static IntPtr Load(string library)
         {
-            if (Changed && Loadeds.Count > 0)
-            {
-                Loadeds.Values.ToList().ForEach(ptr => NativeLibrary.Free(ptr));
-                Loadeds.Clear();
-            }
-
             IntPtr handle;
-            if (Loadeds.TryGetValue(library, out handle)) return handle;
+            if (LoadedHandles.TryGetValue(library, out handle)) return handle;
 
             int version = VERSIONS[library];
 
             // load internal libraries
             if (NativeLibrary.TryLoad(PATH(library, version, true), typeof(LibrariesLoader).Assembly, DllImportSearchPath.AssemblyDirectory, out handle))
             {
-                Loadeds.Add(library, handle);
+                LoadedHandles.Add(library, handle);
                 return handle;
             }
             if (NativeLibrary.TryLoad(PATH(library, use: true), typeof(LibrariesLoader).Assembly, DllImportSearchPath.AssemblyDirectory, out handle))
             {
-                Loadeds.Add(library, handle);
+                LoadedHandles.Add(library, handle);
                 return handle;
             }
 
             // frist load external libraries. 
             if (NativeLibrary.TryLoad(PATH(library, version), typeof(LibrariesLoader).Assembly, DllImportSearchPath.UseDllDirectoryForDependencies, out handle))
             {
-                Loadeds.Add(library, handle);
+                LoadedHandles.Add(library, handle);
                 return handle;
             }
             if (NativeLibrary.TryLoad(PATH(library), typeof(LibrariesLoader).Assembly, DllImportSearchPath.UseDllDirectoryForDependencies, out handle))
             {
-                Loadeds.Add(library, handle);
+                LoadedHandles.Add(library, handle);
                 return handle;
             }
             throw new DllNotFoundException($"library '{library}' not found.");
         }
 
-        public static IntPtr GetPtr(string library)
+        private static IntPtr GetLibraryPtr(string library)
         {
             if (string.IsNullOrEmpty(library)) throw new ArgumentNullException(nameof(library));
             if (!DEPENDENCIES.TryGetValue(library, out var dependencies)) throw new ArgumentException("please input an corrent library name.", nameof(library));
-            if (Loadeds.TryGetValue(library, out var handle)) return handle;
+            if (LoadedHandles.TryGetValue(library, out var handle)) return handle;
             foreach (var dependency in dependencies)
             {
                 Load(dependency);
@@ -123,10 +131,26 @@ namespace FFmpeg.NET.Interop
             return Load(library);
         }
 
-        private static string PATH(string name, int? version = null, bool use = false)
-        => use ? Path.Combine(DIR, GetLibraryName(name, version)) : GetLibraryName(name, version);
+        public static IntPtr NativeMethodPtr(string library, string method)
+        {
+            if (string.IsNullOrEmpty(library)) throw new ArgumentNullException(nameof(library));
+            if (string.IsNullOrEmpty(method)) throw new ArgumentNullException(nameof(method));
+            if (HasChanged) Dispose();
+            var key = $"{library}_{method}";
+            if (LoadedHandles.TryGetValue(key, out IntPtr ret)) return ret;
+            var handle = GetLibraryPtr(library);
+            if (NativeLibrary.TryGetExport(handle, method, out IntPtr address))
+            {
+                LoadedHandles.Add(key, address);
+                return address;
+            }
+            return IntPtr.Zero;
+        }
 
-        public static string GetLibraryName(string library, int? version) => OSPlatformID switch
+        private static string PATH(string name, int? version = null, bool use = false)
+        => use ? Path.Combine(CurrentDIR, GetLibraryName(name, version)) : GetLibraryName(name, version);
+
+        private static string GetLibraryName(string library, int? version) => OSPlatformID switch
         {
             PlatformID.Win32NT => version.HasValue ? $"{library}-{version}.dll" : $"{library}.dll",
             PlatformID.Unix => version.HasValue ? $"lib{library}.so.{version}" : $"lib{library}.so",

@@ -116,13 +116,13 @@ namespace FFmpeg.NET.Interop
                 LoadedHandles.Add(library, handle);
                 return handle;
             }
-            throw new DllNotFoundException($"library '{library}' not found.");
+            throw new DllNotFoundException(Strings.DllNotFound(library));
         }
 
         private static IntPtr GetLibraryPtr(string library)
         {
             if (string.IsNullOrEmpty(library)) throw new ArgumentNullException(nameof(library));
-            if (!DEPENDENCIES.TryGetValue(library, out var dependencies)) throw new ArgumentException("please input an corrent library name.", nameof(library));
+            if (!DEPENDENCIES.TryGetValue(library, out var dependencies)) throw new ArgumentException(Strings.LibraryNameInvalid(library), nameof(library));
             if (LoadedHandles.TryGetValue(library, out var handle)) return handle;
             foreach (var dependency in dependencies)
             {

@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="net_quic_addressfamily_notsupported" xml:space="preserve">
-    <value>Only IPv4 or IPv6 are supported</value>
+  <data name="current_platform_notsupported" xml:space="preserve">
+    <value>Current OS Platform are notsupported.</value>
   </data>
-  <data name="net_ssl_app_protocols_invalid" xml:space="preserve">
-    <value>The application protocol list is invalid.</value>
+  <data name="dll_notfound" xml:space="preserve">
+    <value>Dynamic link library '{0}' not found.</value>
+  </data>
+  <data name="library_name_invalid" xml:space="preserve">
+    <value>Dynamic link library Name '{0}' is invalid.</value>
   </data>
 </root>
 

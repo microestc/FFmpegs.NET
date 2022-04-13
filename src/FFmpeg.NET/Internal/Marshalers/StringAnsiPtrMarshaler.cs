@@ -18,7 +18,6 @@ namespace FFmpeg.NET.Internal
 
         public void CleanUpNativeData(IntPtr pNativeData)
         {
-            
         }
 
         public int GetNativeDataSize() => IntPtr.Size;

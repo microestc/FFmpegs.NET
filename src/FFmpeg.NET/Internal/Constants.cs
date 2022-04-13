@@ -2,10 +2,8 @@ using System;
 
 namespace FFmpeg.NET
 {
-    public unsafe static partial class FFmpeg
+    public unsafe static partial class Constants
     {
-        public static string? DLLDIR = null;
-
         public static readonly int EAGAIN = OperatingSystem.IsMacOS() ? 35 : 11;
         
         public static readonly int ENOMEM = 12;

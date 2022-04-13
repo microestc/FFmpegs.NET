@@ -8,6 +8,8 @@ namespace FFmpeg.NET
 {
     public unsafe static partial class FFmpegapi
     {
+        public static string? DLLDIR = null;
+        
         private static T NativeMethodsDelegate<T>()
         {
             var attr = (NativeMethodAttribute?)Attribute.GetCustomAttribute(typeof(T), typeof(NativeMethodAttribute));

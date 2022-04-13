@@ -8,6 +8,7 @@ namespace FFmpeg.NET
 {
     public unsafe static partial class FFmpegapi
     {
+        /// <summary>Custom the FFmpeg dynamic library path</summary>
         public static string? DLLDIR = null;
         
         private static T NativeMethodsDelegate<T>()

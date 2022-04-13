@@ -2,7 +2,7 @@ using System;
 
 namespace FFmpeg.NET
 {
-    public unsafe static partial class Constants
+    public unsafe static partial class FFmpegconst
     {
         public static readonly int EAGAIN = OperatingSystem.IsMacOS() ? 35 : 11;
         

@@ -3,6 +3,8 @@ using FFmpeg.NET;
 
 Console.WriteLine("Hello, Start!");
 
+FFmpegapi.DLLDIR = "your_ffmpeg_dlls_path";
+
 var version = FFmpegapi.av_version_info();
 Console.WriteLine(version);
 

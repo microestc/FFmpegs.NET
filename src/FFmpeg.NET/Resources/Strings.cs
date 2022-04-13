@@ -7,7 +7,7 @@ namespace FFmpeg.NET
         private static readonly ResourceManager _resourceManager;
         static Strings()
         {
-            _resourceManager = new ResourceManager("FFmpeg.NET.Resources.Strings", typeof(Strings).Assembly);
+            _resourceManager = new ResourceManager("FFmpeg.NET.Strings", typeof(Strings).Assembly);
         }
 
         private static string GetString(string name, params object[] args)

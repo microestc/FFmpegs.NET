@@ -7,22 +7,20 @@ namespace FFmpeg.Api.Controllers;
 [Route("[controller]")]
 public class IndexController : ControllerBase
 {
-    private readonly FFmpegApi _api;
     private readonly ILogger<IndexController> _logger;
 
-    public IndexController(ILogger<IndexController> logger, FFmpegApi api)
+    public IndexController(ILogger<IndexController> logger)
     {
         _logger = logger;
-        _api = api;
     }
 
     [HttpGet(Name = "Index")]
     public IEnumerable<string> Get()
     {
-        var version = _api.av_version_info();
+        var version = FFmpegapi.av_version_info();
         Console.WriteLine(version);
 
-        var err = _api.GetError(-1179861752);
+        var err = FFmpegapi.GetError(-1179861752);
         Console.WriteLine(err);
 
         return new string[] { version, err! };

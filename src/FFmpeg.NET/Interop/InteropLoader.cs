@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace FFmpeg.NET.Interop
 {
-    internal static class NativeMethodsLoader
+    internal static class InteropLoader
     {
         public static string AVUTIL => LibraryNames.AVUTIL;
         public static string SWSCALE => LibraryNames.SWSCALE;
@@ -76,7 +76,7 @@ namespace FFmpeg.NET.Interop
             }
         }
 
-        static NativeMethodsLoader()
+        static InteropLoader()
         {
             AppDomain.CurrentDomain.ProcessExit += (s, e) => Dispose();
         }
@@ -94,24 +94,24 @@ namespace FFmpeg.NET.Interop
             int version = VERSIONS[library];
 
             // load internal libraries
-            if (NativeLibrary.TryLoad(PATH(library, version, true), typeof(LibrariesLoader).Assembly, DllImportSearchPath.AssemblyDirectory, out handle))
+            if (NativeLibrary.TryLoad(PATH(library, version, true), typeof(InteropLoader).Assembly, DllImportSearchPath.AssemblyDirectory, out handle))
             {
                 LoadedHandles.Add(library, handle);
                 return handle;
             }
-            if (NativeLibrary.TryLoad(PATH(library, use: true), typeof(LibrariesLoader).Assembly, DllImportSearchPath.AssemblyDirectory, out handle))
+            if (NativeLibrary.TryLoad(PATH(library, use: true), typeof(InteropLoader).Assembly, DllImportSearchPath.AssemblyDirectory, out handle))
             {
                 LoadedHandles.Add(library, handle);
                 return handle;
             }
 
             // frist load external libraries. 
-            if (NativeLibrary.TryLoad(PATH(library, version), typeof(LibrariesLoader).Assembly, DllImportSearchPath.UseDllDirectoryForDependencies, out handle))
+            if (NativeLibrary.TryLoad(PATH(library, version), typeof(InteropLoader).Assembly, DllImportSearchPath.UseDllDirectoryForDependencies, out handle))
             {
                 LoadedHandles.Add(library, handle);
                 return handle;
             }
-            if (NativeLibrary.TryLoad(PATH(library), typeof(LibrariesLoader).Assembly, DllImportSearchPath.UseDllDirectoryForDependencies, out handle))
+            if (NativeLibrary.TryLoad(PATH(library), typeof(InteropLoader).Assembly, DllImportSearchPath.UseDllDirectoryForDependencies, out handle))
             {
                 LoadedHandles.Add(library, handle);
                 return handle;

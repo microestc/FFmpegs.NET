@@ -6,13 +6,13 @@ using static FFmpeg.NET.Internal.NativeMethods;
 
 namespace FFmpeg.NET
 {
-    public unsafe static partial class NativeApi
+    public unsafe static partial class FFmpegapi
     {
-        public static T NativeMethodsDelegate<T>()
+        private static T NativeMethodsDelegate<T>()
         {
             var attr = (NativeMethodAttribute?)Attribute.GetCustomAttribute(typeof(T), typeof(NativeMethodAttribute));
             if (attr == null) throw new AttributeNotFoundException(typeof(T), typeof(NativeMethodAttribute));
-            IntPtr handle = NativeMethodsLoader.NativeMethodPtr(attr.Library, attr.Method);
+            IntPtr handle = InteropLoader.NativeMethodPtr(attr.Library, attr.Method);
             if (handle == IntPtr.Zero) throw new NotSupportedException();
             return Marshal.GetDelegateForFunctionPointer<T>(handle);
         }

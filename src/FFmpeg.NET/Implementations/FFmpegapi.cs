@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace FFmpeg.NET
 {
-    public unsafe static partial class NativeApi
+    public unsafe static partial class FFmpegapi
     {
         public static int MAX_ERROR = 64;
         /// <summary>Compute ceil(log2(x)).</summary>

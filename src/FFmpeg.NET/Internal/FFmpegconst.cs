@@ -25,7 +25,6 @@ namespace FFmpeg.NET
         /// <summary>AV_BUFFERSINK_FLAG_PEEK = 0x1</summary>
         public const int AV_BUFFERSINK_FLAG_PEEK = 0x1;
         // public static av_builtin_constant_p = __builtin_constant_p;
-        // public static av_ceil_log2 = av_ceil_log2_c;
         // public static AV_CEIL_RSHIFT = (a,b) (!av_builtin_constant_p(b) ? -((-(a)) >> (b)) : ((a) + (1<<(b)) - 1) >> (b));
         /// <summary>AV_CH_BACK_CENTER = 0x100</summary>
         public const int AV_CH_BACK_CENTER = 0x100;
@@ -433,7 +432,6 @@ namespace FFmpeg.NET
         public const int AV_EF_EXPLODE = 0x1 << 0x3;
         /// <summary>AV_EF_IGNORE_ERR = 0x1 &lt;&lt; 0xf</summary>
         public const int AV_EF_IGNORE_ERR = 0x1 << 0xf;
-        // public static av_err2str = (errnum) av_make_error_string((char[AV_ERROR_MAX_STRING_SIZE]){0}, AV_ERROR_MAX_STRING_SIZE, errnum);
         /// <summary>AV_ERROR_MAX_STRING_SIZE = 64</summary>
         public const int AV_ERROR_MAX_STRING_SIZE = 0x40;
         // public static av_extern_inline = inline;

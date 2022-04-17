@@ -6,12 +6,21 @@ namespace FFmpeg.NET
     public unsafe static partial class FFmpegapi
     {
         public static int MAX_ERROR = 64;
+
+        public static int av_ceil_log2(int @x) => av_ceil_log2_c(@x);
+
         /// <summary>Compute ceil(log2(x)).</summary>
         /// <param name="x">value used to compute ceil(log2(x))</param>
         /// <returns>computed ceiling of log2(x)</returns>
         public static int av_ceil_log2_c(int @x)
         {
             return av_log2((uint)(x - 1U) << 1);
+        }
+
+        public static byte* av_err2str(int errnum)
+        {
+            var bytes = stackalloc byte[FFmpegconst.AV_ERROR_MAX_STRING_SIZE];
+           return av_make_error_string(bytes, (ulong)FFmpegconst.AV_ERROR_MAX_STRING_SIZE, errnum);
         }
 
         /// <summary>Fill the provided buffer with a string containing an error string corresponding to the AVERROR code errnum.</summary>
@@ -37,7 +46,7 @@ namespace FFmpeg.NET
             if (number >= 0) return null;
             var bytes = stackalloc byte[MAX_ERROR];
             av_strerror(number, bytes, (ulong)MAX_ERROR);
-            return Marshal.PtrToStringAnsi((IntPtr) bytes);
+            return Marshal.PtrToStringAnsi((IntPtr)bytes);
         }
 
         public static int ThrowExceptionIfError(int error)
@@ -45,7 +54,7 @@ namespace FFmpeg.NET
             if (error < 0) throw new ApplicationException(GetError(error));
             return error;
         }
-        
+
         /// <summary>Clip a signed integer value into the amin-amax range.</summary>
         /// <param name="a">value to clip</param>
         /// <param name="amin">minimum value of the clip range</param>

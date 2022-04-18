@@ -67,8 +67,15 @@ namespace FFmpeg.NET.Interop
 
         private readonly static IDictionary<string, IntPtr> LoadedHandles = new Dictionary<string, IntPtr>(StringComparer.CurrentCulture);
 
+        private readonly static IDictionary<string, IntPtr> LoadedMethodHandles = new Dictionary<string, IntPtr>(StringComparer.CurrentCulture);
+
         private static void Dispose()
         {
+            if (LoadedMethodHandles.Count > 0)
+            {
+                // LoadedMethodHandles.Values.ToList().ForEach(ptr => Marshal.FreeCoTaskMem(ptr));
+                LoadedMethodHandles.Clear();
+            }
             if (LoadedHandles.Count > 0)
             {
                 LoadedHandles.Values.ToList().ForEach(ptr => NativeLibrary.Free(ptr));
@@ -137,11 +144,11 @@ namespace FFmpeg.NET.Interop
             if (string.IsNullOrEmpty(method)) throw new ArgumentNullException(nameof(method));
             if (HasChanged) Dispose();
             var key = $"{library}_{method}";
-            if (LoadedHandles.TryGetValue(key, out IntPtr ret)) return ret;
+            if (LoadedMethodHandles.TryGetValue(key, out IntPtr ret)) return ret;
             var handle = GetLibraryPtr(library);
             if (NativeLibrary.TryGetExport(handle, method, out IntPtr address))
             {
-                LoadedHandles.Add(key, address);
+                LoadedMethodHandles.Add(key, address);
                 return address;
             }
             return IntPtr.Zero;

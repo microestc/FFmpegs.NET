@@ -11,7 +11,13 @@ Console.WriteLine(version);
 var err = FFmpegapi.GetError(-1179861752);
 Console.WriteLine(err);
 
+version = FFmpegapi.av_version_info();
+Console.WriteLine(version);
+
+err = FFmpegapi.GetError(-1179861752);
+Console.WriteLine(err);
+
 Console.WriteLine("Hello End!");
 
-Console.WriteLine(Strings.CurrentPlatformNotsupported);
+// Console.WriteLine(Strings.CurrentPlatformNotsupported);
 

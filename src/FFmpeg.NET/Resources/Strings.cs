@@ -22,5 +22,7 @@ namespace FFmpeg.NET
         public static string DllNotFound(string name) => GetString("dll_notfound", name);
 
         public static string LibraryNameInvalid(string name) => GetString("library_name_invalid", name);
+
+        public static string NotFoundAttribute(string attributeName, string elementName) => GetString("not_found_attribute", attributeName, elementName);
     }
 }

@@ -126,5 +126,8 @@
   <data name="library_name_invalid" xml:space="preserve">
     <value>Dynamic link library Name '{0}' is invalid.</value>
   </data>
+  <data name="not_found_attribute" xml:space="preserve">
+    <value>Not found any attribute '{0}' from {1}.</value>
+  </data>
 </root>
 

@@ -31,7 +31,7 @@ static class FFmpegconst
 ```
 
 ### 3. Dynamic Library
-custom the FFmpeg dynamic library path
+FFmpeg dynamic library has somes defaults, but you can set custom the FFmpeg dynamic library path
 ```
 FFmpegapi.DLLDIR = "your_ffmpeg_dlls_path";
 ```

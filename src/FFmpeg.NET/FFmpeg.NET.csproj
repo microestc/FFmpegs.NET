@@ -6,6 +6,29 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <NoWarn>CS0108</NoWarn>
+    <AssemblyName>FFmpeg.NET</AssemblyName>
+    <RootNamespace>FFmpeg.NET</RootNamespace>
+    <Version>1.0.0</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>FFmpeg.NET.snk</AssemblyOriginatorKeyFile>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <PackageId>FFmpeg.NET</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>microestc@outlook.com</Authors>
+    <Company>Microestc Co.</Company>
+    <Description>FFmpeg API .NET Standard2.0(TFM)支持.NET Framework &gt;=4.6.1 以及 .NET Core 2.0 至 .NET 6</Description>
+    <Copyright>2022 Microestc (c)</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReleaseNotes>FFmpeg.NET</PackageReleaseNotes>
+    <Product>FFmpeg.NET</Product>
+    <RepositoryUrl>https://github.com/microestc/FFmpeg.NET</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/microestc/FFmpeg.NET</PackageProjectUrl>
+    <RepositoryType>github</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RequireLicenseAcceptance>true</RequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>

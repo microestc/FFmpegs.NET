@@ -31,17 +31,16 @@
     <RequireLicenseAcceptance>true</RequireLicenseAcceptance>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);GetMyPackageFiles</TargetsForTfmSpecificBuildOutput>
-  </PropertyGroup>
-
-<Target Name="GetMyPackageFiles">
   <ItemGroup>
-    <BuildOutputInPackage Include="lib\**">
-        <TargetPath>lib</TargetPath>
-    </BuildOutputInPackage>
+    <None Remove="lib\**" />
   </ItemGroup>
-</Target>
+
+  <ItemGroup>
+    <Content Include="lib\**">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />

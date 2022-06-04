@@ -41,7 +41,7 @@ namespace FFmpeg.NET
             return avio_seek(s, 0, 1);
         }
 
-        public static string? GetError(int number)
+        public static string? get_errorstr(int number)
         {
             if (number >= 0) return null;
             var bytes = stackalloc byte[MAX_ERROR];
@@ -49,9 +49,9 @@ namespace FFmpeg.NET
             return Marshal.PtrToStringAnsi((IntPtr)bytes);
         }
 
-        public static int ThrowExceptionIfError(int error)
+        public static int throw_if_error(int error)
         {
-            if (error < 0) throw new ApplicationException(GetError(error));
+            if (error < 0) throw new ApplicationException(get_errorstr(error));
             return error;
         }
 

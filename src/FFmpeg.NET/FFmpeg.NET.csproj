@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>net5.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
@@ -31,15 +31,17 @@
     <RequireLicenseAcceptance>true</RequireLicenseAcceptance>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="lib\**" />
-  </ItemGroup>
+  <PropertyGroup>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);GetMyPackageFiles</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
 
+<Target Name="GetMyPackageFiles">
   <ItemGroup>
-    <Content Include="lib\**">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <BuildOutputInPackage Include="lib\**">
+        <TargetPath>lib</TargetPath>
+    </BuildOutputInPackage>
   </ItemGroup>
+</Target>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />

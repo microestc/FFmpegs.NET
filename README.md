@@ -1,7 +1,7 @@
-# FFmpeg.NET
-This is a project that plans to build FFmpeg.NET dynamic libraries, it's call FFmpeg API on .NET Platform.
+# FFmpegs.NET
+This is a project that plans to build FFmpegs.NET dynamic libraries, it's call FFmpeg API on .NET Platform.
 
-这是一个FFmpeg.NET的动态库，支持在 .NET 平台调用 FFmpeg API 接口。
+这是一个FFmpegs.NET的动态库，支持在 .NET 平台调用 FFmpeg API 接口。
 
 ## Setup
 

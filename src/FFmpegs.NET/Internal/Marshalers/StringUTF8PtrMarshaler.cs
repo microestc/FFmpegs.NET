@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace FFmpeg.NET.Internal
+namespace FFmpegs.NET.Internal
 {
     internal class StringUTF8PtrMarshaler : ICustomMarshaler
     {

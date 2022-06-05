@@ -1,4 +1,4 @@
-namespace FFmpeg.NET
+namespace FFmpegs.NET
 {
     public enum AVActiveFormatDescription : int
     {

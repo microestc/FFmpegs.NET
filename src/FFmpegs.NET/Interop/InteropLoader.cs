@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace FFmpeg.NET.Interop
+namespace FFmpegs.NET.Interop
 {
     internal static class InteropLoader
     {
@@ -91,7 +91,7 @@ namespace FFmpeg.NET.Interop
         /// <summary>
         /// dynamic link libraries path changed.
         /// </summary>
-        private static bool HasChanged => FFmpegapi.DLLDIR != null && FFmpegapi.DLLDIR != CurrentDIR ? (CurrentDIR = FFmpegapi.DLLDIR) == CurrentDIR : false;
+        private static bool HasChanged => FFmpeg.DLLDIR != null && FFmpeg.DLLDIR != CurrentDIR ? (CurrentDIR = FFmpeg.DLLDIR) == CurrentDIR : false;
 
         private static IntPtr Load(string library)
         {

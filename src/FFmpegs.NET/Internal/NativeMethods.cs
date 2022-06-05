@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace FFmpeg.NET.Internal
+namespace FFmpegs.NET.Internal
 {
     public unsafe static partial class NativeMethods
     {

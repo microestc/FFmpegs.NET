@@ -1,6 +1,6 @@
 using System;
 
-namespace FFmpeg.NET
+namespace FFmpegs.NET
 {
 #pragma warning disable 169
 

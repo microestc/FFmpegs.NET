@@ -1,12 +1,12 @@
 using System;
 using System.Runtime.InteropServices;
-using FFmpeg.NET.Internal;
-using FFmpeg.NET.Interop;
-using static FFmpeg.NET.Internal.NativeMethods;
+using FFmpegs.NET.Internal;
+using FFmpegs.NET.Interop;
+using static FFmpegs.NET.Internal.NativeMethods;
 
-namespace FFmpeg.NET
+namespace FFmpegs.NET
 {
-    public unsafe static partial class FFmpegapi
+    public unsafe static partial class FFmpeg
     {
         /// <summary>Custom the FFmpeg dynamic library path</summary>
         public static string? DLLDIR = null;

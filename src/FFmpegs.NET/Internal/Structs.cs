@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace FFmpeg.NET
+namespace FFmpegs.NET
 {
     public unsafe struct _iobuf
     {

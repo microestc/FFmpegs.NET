@@ -1,9 +1,9 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace FFmpeg.NET
+namespace FFmpegs.NET
 {
-    public unsafe static partial class FFmpegapi
+    public unsafe static partial class FFmpeg
     {
         public static int MAX_ERROR = 64;
 
@@ -19,8 +19,8 @@ namespace FFmpeg.NET
 
         public static byte* av_err2str(int errnum)
         {
-            var bytes = stackalloc byte[FFmpegconst.AV_ERROR_MAX_STRING_SIZE];
-           return av_make_error_string(bytes, (ulong)FFmpegconst.AV_ERROR_MAX_STRING_SIZE, errnum);
+            var bytes = stackalloc byte[FFmpegConst.AV_ERROR_MAX_STRING_SIZE];
+           return av_make_error_string(bytes, (ulong)FFmpegConst.AV_ERROR_MAX_STRING_SIZE, errnum);
         }
 
         /// <summary>Fill the provided buffer with a string containing an error string corresponding to the AVERROR code errnum.</summary>

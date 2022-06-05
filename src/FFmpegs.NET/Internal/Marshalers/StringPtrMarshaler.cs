@@ -1,12 +1,12 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace FFmpeg.NET.Internal
+namespace FFmpegs.NET.Internal
 {
-    internal class StringAnsiPtrMarshaler : ICustomMarshaler
+    internal class StringPtrMarshaler : ICustomMarshaler
     {
-        private StringAnsiPtrMarshaler() { }
-        public static ICustomMarshaler Instance = new StringAnsiPtrMarshaler();
+        private StringPtrMarshaler() { }
+        public static ICustomMarshaler Instance = new StringPtrMarshaler();
         public static ICustomMarshaler GetInstance(string cookie) => Instance;
         public void CleanUpManagedData(object ManagedObj)
         {
@@ -18,21 +18,22 @@ namespace FFmpeg.NET.Internal
 
         public void CleanUpNativeData(IntPtr pNativeData)
         {
+            // Need not free
         }
 
         public int GetNativeDataSize() => IntPtr.Size;
 
         public IntPtr MarshalManagedToNative(object ManagedObj)
         {
-            if (ManagedObj is string ansiStr)
-                return Marshal.StringToCoTaskMemAnsi(ansiStr);
+            if (ManagedObj is string str)
+                return Marshal.StringToCoTaskMemAuto(str);
             return IntPtr.Zero;
         }
 
         public object MarshalNativeToManaged(IntPtr pNativeData)
         {
             if (pNativeData == IntPtr.Zero) return string.Empty;
-            return Marshal.PtrToStringAnsi(pNativeData)!;
+            return Marshal.PtrToStringUTF8(pNativeData)!;
         }
     }
 }

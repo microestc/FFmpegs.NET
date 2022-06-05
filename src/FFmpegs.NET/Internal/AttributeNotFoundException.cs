@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace FFmpeg.NET.Internal
+namespace FFmpegs.NET.Internal
 {
     public class AttributeNotFoundException : Exception
     {

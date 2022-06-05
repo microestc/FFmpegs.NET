@@ -1,29 +1,25 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FFmpeg.NET;
+using FFmpegs.NET;
 
 namespace MsTest;
 
 [TestClass]
-public class UnitTest1
+public class UnitTest
 {
     [TestMethod]
     public void TestMethod()
     {
-        // FFmpegapi.DLLDIR = "your_ffmpeg_dlls_path";
+        // FFmpeg.DLLDIR = "your_ffmpeg_dlls_path";
 
-        var version = FFmpegapi.av_version_info();
-        Console.WriteLine(version);
+        var version = FFmpeg.av_version_info(); // n5.0-42-g8fd2dc3f2b-20220330
+        Assert.AreEqual(version, "n5.0-42-g8fd2dc3f2b-20220330");
 
-        var err = FFmpegapi.get_errorstr(-1179861752);
-        Console.WriteLine(err);
+        var err = FFmpeg.get_errorstr(-1179861752); // Bitstream filter not found
+        Assert.AreEqual(err, "Bitstream filter not found");
 
-        version = FFmpegapi.av_version_info();
-        Console.WriteLine(version);
+        var eagain = FFmpegConst.EAGAIN;
 
-        err = FFmpegapi.get_errorstr(-1179861752);
-        Console.WriteLine(err);
-
-        // Console.WriteLine(Strings.CurrentPlatformNotsupported);
+        Assert.AreEqual(11, eagain);
     }
 }

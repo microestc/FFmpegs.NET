@@ -1,6 +1,6 @@
 using System.Resources;
 
-namespace FFmpeg.NET
+namespace FFmpegs.NET
 {
     public static class Strings
     {

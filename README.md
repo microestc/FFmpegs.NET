@@ -10,26 +10,26 @@ This is a project that plans to build FFmpeg.NET dynamic libraries, it's call FF
 Program.cs
 ```
 using System;
-using FFmpeg.NET;
+using FFmpegs.NET;
 
-Console.WriteLine("Hello, Start!");
+// FFmpeg.DLLDIR = "your_ffmpeg_dlls_path";
 
-FFmpegapi.DLLDIR = "your_ffmpeg_dlls_path";
+var version = FFmpeg.av_version_info(); // n5.0-42-g8fd2dc3f2b-20220330
+Assert.AreEqual(version, "n5.0-42-g8fd2dc3f2b-20220330");
 
-var version = FFmpegapi.av_version_info();
-Console.WriteLine(version);
+var err = FFmpeg.get_errorstr(-1179861752); // Bitstream filter not found
+Assert.AreEqual(err, "Bitstream filter not found");
 
-var err = FFmpegapi.GetError(-1179861752);
-Console.WriteLine(err);
+var eagain = FFmpegConst.EAGAIN;
 
-Console.WriteLine("Hello End!");
+Assert.AreEqual(11, eagain);
 ```
 
 ### 2. Public Class
 ```
-static class FFmpegapi
+static class FFmpeg
 
-static class FFmpegconst
+static class FFmpegConst
 ```
 
 ### 3. Dynamic Library

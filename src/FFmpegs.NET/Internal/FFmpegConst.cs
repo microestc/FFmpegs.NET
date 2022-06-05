@@ -1,8 +1,8 @@
 using System;
 
-namespace FFmpeg.NET
+namespace FFmpegs.NET
 {
-    public unsafe static partial class FFmpegconst
+    public unsafe static partial class FFmpegConst
     {
         public static readonly int EAGAIN = OperatingSystem.IsMacOS() ? 35 : 11;
         

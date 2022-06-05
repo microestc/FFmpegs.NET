@@ -1,6 +1,6 @@
 using System;
 
-namespace FFmpeg.NET.Internal
+namespace FFmpegs.NET.Internal
 {
     [AttributeUsage(AttributeTargets.Delegate, Inherited = false, AllowMultiple = false)]
     public sealed class NativeMethodAttribute : Attribute

@@ -8,14 +8,14 @@
     <NoWarn>CS0108</NoWarn>
     <AssemblyName>FFmpegs.NET</AssemblyName>
     <RootNamespace>FFmpegs.NET</RootNamespace>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>FFmpegs.NET.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   
   <PropertyGroup>
     <PackageId>FFmpegs.NET</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Authors>microestc@outlook.com</Authors>
     <Company>Microestc Co.</Company>
     <Description>FFmpegs API .NET Standard2.0(TFM)支持.NET Framework &gt;=4.6.1 以及 .NET Core 2.0 至 .NET 6</Description>
